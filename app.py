@@ -1,7 +1,7 @@
 from sqlalchemy.orm import declarative_base, relationship
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 
-# 1. KORAK - Pripremiti bazu, tablice i konekciju na bazu
+# 1. KORAK - Pripremiti strukturu baze i tablice
 
 # Base klasa je klasa koju svaki model mora naslijediti
 # i zahvaljujuci toj klasi, SQL Alchemy 'zna' koja klasa predstavlja koju tablicu u bazi
@@ -39,41 +39,8 @@ class Book(Base):
         return f"Book: {self.title}"
 
 
+# 2. KORAK - Kreiranje konekcije na s bazom pomocu objekta 'engine'
+engine = create_engine("sqlite:///library.db")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-the_hobit = Book('The Hobit')
-the_hobit.title
-the_hobit.author
-
-tolkien = Author(last_name="Tolkine", first_name="J.R.R.")
-tolkien.books
+# 3. KORAK - Kreiranje baze i tablica na osnovu klasa koje naslijeduju Base klasu
+Base.metadata.create_all(engine)
